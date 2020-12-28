@@ -36,10 +36,7 @@ public class POJO implements Serializable {
             return false;
         }
         final POJO other = (POJO) obj;
-        if (!Objects.equals(this.value, other.value)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.value, other.value);
     }
 
     @Override

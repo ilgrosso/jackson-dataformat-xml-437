@@ -34,10 +34,7 @@ public class Root implements Serializable {
             return false;
         }
         final Root other = (Root) obj;
-        if (!Objects.equals(this.pojos, other.pojos)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.pojos, other.pojos);
     }
 
     @Override

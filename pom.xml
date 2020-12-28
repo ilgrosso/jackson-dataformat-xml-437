@@ -62,6 +62,9 @@
           <redirectTestOutputToFile>true</redirectTestOutputToFile>
           <encoding>utf-8</encoding>
           <runOrder>alphabetical</runOrder>
+          <systemProperties>
+            <JACKSON_VERSION>${jackson.version}</JACKSON_VERSION>
+          </systemProperties>
         </configuration>
       </plugin>
     </plugins>

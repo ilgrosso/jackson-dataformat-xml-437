@@ -15,7 +15,7 @@ abstract class SerializationTest {
     protected abstract ObjectMapper objectMapper();
 
     @Test
-    void emptyAsRoot() throws IOException {
+    void emptyListAsRoot() throws IOException {
         List<POJO> original = new ArrayList<>();
 
         StringWriter writer = new StringWriter();
@@ -27,9 +27,8 @@ abstract class SerializationTest {
     }
 
     @Test
-    void emptyAsMember() throws IOException {
+    void emptyListAsMember() throws IOException {
         Root original = new Root();
-        original.getPojos().add(new POJO());
 
         StringWriter writer = new StringWriter();
         objectMapper().writeValue(writer, original);
