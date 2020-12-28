@@ -1,5 +1,7 @@
 package net.tirasa.test;
 
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,9 +10,11 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.deser.FromXmlParser;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.junit.jupiter.api.Test;
 
 class XMLTest extends SerializationTest {
 
@@ -36,5 +40,17 @@ class XMLTest extends SerializationTest {
     @Override
     protected ObjectMapper objectMapper() {
         return XML_MAPPER;
+    }
+
+    @Test
+    void nonEmptyListAsMember_disable_EMPTY_ELEMENT_AS_NULL() throws IOException {
+        assumeTrue(isJackson212());
+
+        XML_MAPPER.disable(FromXmlParser.Feature.EMPTY_ELEMENT_AS_NULL);
+        try {
+            super.nonEmptyListAsMember();
+        } finally {
+            XML_MAPPER.enable(FromXmlParser.Feature.EMPTY_ELEMENT_AS_NULL);
+        }
     }
 }
