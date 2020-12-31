@@ -27,6 +27,17 @@ abstract class SerializationTest {
     }
 
     @Test
+    void emptyListAsMember() throws IOException {
+        Root original = new Root();
+
+        StringWriter writer = new StringWriter();
+        objectMapper().writeValue(writer, original);
+
+        Root actual = objectMapper().readValue(writer.toString(), Root.class);
+        assertEquals(original, actual);
+    }
+
+    @Test
     void nonEmptyListAsMember() throws IOException {
         Root original = new Root();
         original.getPojos().add(new POJO());
