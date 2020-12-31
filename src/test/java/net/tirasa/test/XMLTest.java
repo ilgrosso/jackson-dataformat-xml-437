@@ -31,6 +31,9 @@ class XMLTest extends SerializationTest {
                     xmlOut.setProperty(WstxOutputFactory.P_AUTOMATIC_EMPTY_ELEMENTS, Boolean.FALSE);
                 }
             });
+
+            XML_MAPPER.enable(ToXmlGenerator.Feature.WRITE_XML_DECLARATION);
+            XML_MAPPER.enable(FromXmlParser.Feature.EMPTY_ELEMENT_AS_NULL);
         } else {
             XML_MAPPER = new XmlMapper();
         }
@@ -42,11 +45,6 @@ class XMLTest extends SerializationTest {
         XML_MAPPER.configOverride(List.class).setSetterInfo(JsonSetter.Value.forValueNulls(Nulls.AS_EMPTY));
         XML_MAPPER.configOverride(Set.class).setSetterInfo(JsonSetter.Value.forValueNulls(Nulls.AS_EMPTY));
         XML_MAPPER.configOverride(Map.class).setSetterInfo(JsonSetter.Value.forValueNulls(Nulls.AS_EMPTY));
-
-        if (isJackson212()) {
-            XML_MAPPER.enable(ToXmlGenerator.Feature.WRITE_XML_DECLARATION);
-            XML_MAPPER.enable(FromXmlParser.Feature.EMPTY_ELEMENT_AS_NULL);
-        }
     }
 
     private static boolean isJackson212() {
